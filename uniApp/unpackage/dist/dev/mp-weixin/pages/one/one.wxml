@@ -1,0 +1,1 @@
+<view><view>我的一个非注册在tabBar的路由页面</view><button type="primary" data-event-opts="{{[['tap',[['toPath',['$event']]]]]}}" bindtap="__e">toTwo</button><button type="primary" data-event-opts="{{[['tap',[['goBack',['$event']]]]]}}" bindtap="__e">goBack</button></view>
