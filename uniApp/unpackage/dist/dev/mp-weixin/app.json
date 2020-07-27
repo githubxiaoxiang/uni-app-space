@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/flex/flex",
     "pages/test/test",
     "pages/index/index",
     "pages/one/one",
@@ -26,6 +27,10 @@
       {
         "pagePath": "pages/test/test",
         "text": "测试"
+      },
+      {
+        "pagePath": "pages/flex/flex",
+        "text": "flex"
       }
     ]
   },

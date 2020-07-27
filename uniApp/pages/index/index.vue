@@ -90,7 +90,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 	.box11{
 		widht:100px;
 		height:100px;

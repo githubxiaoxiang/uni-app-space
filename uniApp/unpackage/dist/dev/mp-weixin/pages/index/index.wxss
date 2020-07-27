@@ -1,16 +1,16 @@
 
-.box11{
+.box11.data-v-57280228{
 	widht:100px;
 	height:100px;
 	background:pink;
 }
-.box22{
+.box22.data-v-57280228{
 	border: 1px solid #4CD964
 }
-.box33{
+.box33.data-v-57280228{
 	background: yellow;
 }
-.content {
+.content.data-v-57280228 {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -21,7 +21,7 @@
 	/* align-items: center; */
 	/* justify-content: center; */
 }
-.logo {
+.logo.data-v-57280228 {
 	height: 200rpx;
 	width: 200rpx;
 	margin-top: 200rpx;
@@ -29,7 +29,7 @@
 	margin-right: auto;
 	margin-bottom: 50rpx;
 }
-.text-area {
+.text-area.data-v-57280228 {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -37,7 +37,7 @@
 	-webkit-justify-content: center;
 	        justify-content: center;
 }
-.title {
+.title.data-v-57280228 {
 	font-size: 36rpx;
 	color: #8f8f94;
 }
