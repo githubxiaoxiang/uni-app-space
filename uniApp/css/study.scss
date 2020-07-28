@@ -1,0 +1,278 @@
+// https://www.runoob.com/sass/sass-functions.html
+// https://www.jianshu.com/p/a99764ff3c41
+// https://www.jianshu.com/p/cf20281eac4e
+// Sass 变量
+$myColor:red;
+// Sass 作用域
+.container{
+	// $myColor:green; // 只在 container 里头有用，局部作用域
+	$myColor:green !global; //使用 !global 关键词来设置变量是全局的
+	color: $myColor;
+}
+
+.container1{
+	color: $myColor;
+}
+
+
+// Sass 嵌套规则与属性
+//嵌套规则
+.scss-parent
+{
+	.item1{
+		font-size: 20px;
+		color: red;
+	}
+	.item2{
+		font-size: 22px;
+		color: green;
+	}
+	.item3{
+		font-size: 24px;
+	}
+}
+// Sass 嵌套属性 很多 CSS 属性都有同样的前缀，例如：font-family, font-size 和 font-weight ， text-align, text-transform 和 text-overflow。
+.scss-attr{
+	font:{
+		size:18px;
+		weight:bold;
+		family: sans-serif;
+	}
+	overflow: hidden;
+	text:{
+		align:center;
+		transform:lowercase ;
+		overflow: clip;
+		shadow:0px 0px 30px #0f0;
+	}
+	// text-overflow属性前，必须先设定overflow:hidden; 溢出部分隐藏，否则text-overflow属性值无效。
+	//text-overflow: clip  切掉 ellipsis   溢出部分使用三个点的省略号。 string   自定义符号，如：“>>”  该值只有火狐浏览器支持
+	// text-shadow ：h-shadow v-shadow blur color
+	// h-shadow：第一个属性值，表示水平阴影的位置，可以是负值 
+	// v-shadow：第二个属性值，表示垂直阴影的位置，可以是负值 
+	// blur：第三个属性值，表示模糊的距离，设置为负值时，没有模糊的效果
+	// color：第四个属性值，表示阴影的颜色，也可以用rgba设置为透明颜色
+}
+
+//  @import导入scss文件 见studyScss.vue中 <style>中导入说明
+ 
+// Sass Partials
+// 如果你不希望将一个 Sass 的代码文件编译到一个 CSS 文件，你可以在文件名的开头添加一个下划线。这将告诉 Sass 不要将其编译到 CSS 文件。
+// 在 导入语句中我们不需要添加下划线 如创建一个 _colors.scss 的文件，但是不会编译成 _colors.css 文件
+// @import "colors";   导入语句中我们不需要添加下划线
+// 不要将带下划线与不带下划线的同名文件放置在同一个目录下，比如，_colors.scss 和 colors.scss 不能同时存在于同一个目录下，否则带下划线的文件将会被忽略。
+
+// Sass @mixin 与 @include
+// @mixin 指令允许我们定义一个可以在整个样式表中重复使用的样式。 @include 指令可以将混入（mixin）引入到文档中。
+// Sass 的连接符号 - 与下划线符号 _ 是相同的，也就是 @mixin important-text { } 与 @mixin important_text { } 是一样的混入。
+@mixin important-text {
+	font-size: 40px;
+	font-weight: bold;
+	color: red;
+}
+.seletor{
+	@include important-text;
+}
+.danger{
+	@include important-text
+	color:blue
+}
+// 混入中也可以包含混入
+@mixin special-text {
+	@include important-text
+	border: 1px solid #0f0;
+}
+.special{
+	@include special-text;
+}
+// 向混入传递变量
+@mixin m-boder-style1($color,$width) {
+	border: $width solid $color;
+}
+@mixin m-boder-style2($color,$width:1px) {
+	border: $width solid $color;//$width带默认值
+}
+.boder-style{
+	@include  m-boder-style1(red,2px);
+}
+@mixin transform($property) {
+	transform: $property;
+	-webkit-transform: $property;
+	-ms-transform:$property;
+}
+.myBox{
+	@include m-boder-style2(yellow);
+	@include transform(rotate(20deg));
+}
+// 可变参数
+// 不能确定一个混入（mixin）或者一个函数（function）使用多少个参数，这时我们就可以使用 ... 来设置可变参数。
+@mixin boxshadow($shadows...){
+	// box-shadow: h-shadow v-shadow blur spread color inset;   spread:可选的阴影大小
+	box-shadow: $shadows;
+	-webkit-box-shadow:$shadows;
+	-moz-box-shadow:$shadows;
+}
+.shadow{
+	@include boxshadow(0px 4px 5px #666, 2px 6px 10px #999);
+}
+
+// Sass @extend 与 继承
+// @extend 指令告诉 Sass 一个选择器的样式从另一选择器继承。
+// 使用 @extend 后，我们在 HTML 按钮标签中就不需要指定多个类 class="button-basic button-report" ，只需要设置 class="button-report" 类就好了。
+.button-basic
+{
+	width:200px;
+	height:50px;
+	text-align: center;
+	font-size: 20px;
+	border: none;
+	font-weight: bold;
+	// color:#007AFF;
+}
+.button-cancel{
+	@extend .button-basic;//有个点号
+	background-color: green;
+}
+.button-sumit{
+	@extend .button-basic;
+	background-color: yellow;
+}
+
+// 关于@mixin 和 @extend 对比
+// @minxin 相对@extend更可控，
+// 更易减少复杂度 尤其@mixin可以多层嵌套和传入参数
+// 在使用gzip后 @mixin 比@extend的压缩比更大
+
+// Sass 函数
+
+// Sass String(字符串) 函数  
+// Sass 字符串的起始索引值从 1 开始，记住不是 0。
+// quote(string)  给字符串添加引号。 quote(runoob)   结果: "runoob"
+// unquote(string) 移除字符串的引号
+// to-upper-case(string) 将字符串转成大写  
+// to-lower-case(string)  将字符串转成小写 to-lower-case("RUNOOB")
+// str-index(string, substring)  返回 substring 子字符串第一次在 string 中出现的位置。如果没有匹配到子字符串，则返回 null str-index(abcd, a)  => 1
+// str-insert(string, insert, index) 在字符串 string 中 index 位置插入 insert。 str-insert("Hello world!", " runoob", 6)
+// str-length(string) 返回字符串的长度。
+// str-slice(string, start, end)  str-slice("abcd", 2, 3)   => "bc"
+
+// Sass 数字函数
+// comparable(num1, num2)  回一个布尔值，判断 num1 与 num2 是否可以进行比较
+// percentage(number)  将数字转化为百分比的表达形式。percentage(1.2) 结果: 120
+//abs floor ceil  round max min random
+
+// SASS提供了标准的算术运算符，例如+、-、*、/、%
+.artical{
+	 width: 600px / 960px * 100%; //css展示为 运算后结果62.5%;
+}
+
+// 颜色运算 (使用rgba hsl请保证透明通道一致)
+// color:rgba(70,132,153,1)+ rgba(32, 68, 121, 1);
+// color: #468499 + #204479;
+
+// 引用父级选择器"&"
+// 无论CSS规则嵌套的深度怎样，关键字"&"都会使用父级选择器级联替换全部其出现的位置
+// "&"必须出现在复合选择器开头的位置，后面再连接自定义的后缀
+/*===== SCSS =====*/
+// #main {
+//   color: black;
+//   a {
+//     font-weight: bold;
+//     &:hover { color: red; }
+//   }
+// }
+
+// /*===== CSS =====*/
+// #main {
+//   color: black;
+//  }
+// #main a {
+//    font-weight: bold; 
+// }
+// #main a:hover {
+//    color: red; 
+// }
+// /*===== SCSS =====*/
+// #main {
+//   color: black;
+//   &-sidebar { 
+// 	  border: 1px solid; 
+//   }
+// }
+// /*===== CSS =====*/
+// #main {
+//   color: black;
+// }
+//  #main-sidebar {
+//     border: 1px solid; 
+// }
+
+// 控制命令
+// @if
+@mixin txt ($weight){
+	color:red;
+	@if $weight==bold{
+		font-weight: bold;
+	}@else if $weight==light
+	{
+		font-weight: 100;
+	}@else if $weight==heavy{
+		font-weight: 900;
+	}@else{
+		font-weight: normal;
+	} 
+}
+.txt1{
+	@include txt(heavy);
+}
+// @for   @for $i from <start> through <end>  @for $i from <start> to <end>  through 表示包括 end 这个数，而 to 则不包括 end 这个数
+@for $i from 1 through 4
+{
+	.col-#{$i} {
+		font-size:12+$i*2+px;
+		color: blue;
+	}
+}
+
+// @each in
+@each $usr in bob mike jorn
+{
+	.#{$usr}{
+		font-size: 20px;
+	}
+}
+//用() 非{}
+$ppl:(usr5:red,usr6:blue,usr7:yellow,usr8:green);  
+@each $key, $color in $ppl
+{
+	.#{$key}{
+		color:$color ;
+	}
+}
+
+// @while
+$x:1;
+
+@while $x < 6 {
+    .mytxt-#{$x} { font-size:22+$x*2+px;}
+    $x: $x + 1;
+};
+
+// 操作符
+// 判断严格相等 是使用==
+// 逻辑操作符是 and or not
+$list-map:(success:lightgreen,alert:tomato,info:lightbule);
+@mixin button-state($btn-state){
+	@if(length($list-map)==3)
+	{
+		border: 1px solid #f00;
+	}
+	@if(length($list-map)>2 or length($list-map)<5)
+	{
+		background-color: map-get($list-map,$btn-state);
+	}
+}
+
+.btn-state{
+	@include  button-state(success);
+}
