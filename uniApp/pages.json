@@ -4,6 +4,13 @@
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/uview-example/components",
+			"style": {
+				"navigationBarTitleText": "组件",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
 			"path": "pages/studyScss/studyScss",
 			"style": {
 				"navigationBarTitleText": "scss",
@@ -37,14 +44,23 @@
 			"style": {}
 		}
 	],
+	"subPackages": [{
+		"root": "pages/uview-example/componentsA",
+		"pages": [{
+			"path": "color/index",
+			"style":{
+				"navigationBarTitleText": "color-颜色"
+			}
+		}]
+	}],
 	"tabBar": {
 		"color": "#7A7E83",
 		"selectedColor": "#3cc51f",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"list": [{
-			"pagePath": "pages/index/index",
-			"text": "首页"
+			"pagePath": "pages/uview-example/components",
+			"text": "组件"
 		}, {
 			"pagePath": "pages/test/test",
 			"text": "测试"
@@ -55,6 +71,19 @@
 			"pagePath": "pages/studyScss/studyScss",
 			"text": "studyScss"
 		}]
+		// "list": [{
+		// 	"pagePath": "pages/index/index",
+		// 	"text": "首页"
+		// }, {
+		// 	"pagePath": "pages/test/test",
+		// 	"text": "测试"
+		// }, {
+		// 	"pagePath": "pages/flex/flex",
+		// 	"text": "flex"
+		// }, {
+		// 	"pagePath": "pages/studyScss/studyScss",
+		// 	"text": "studyScss"
+		// }]
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
