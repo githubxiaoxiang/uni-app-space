@@ -28,8 +28,9 @@
 						title:"主色调",
 						subList:[
 							{
-								subTitle:"Primary",
-								color:"#2979ff"
+								subTitle:"Primary", 
+								// theme.scss中定义了这些颜色值  $u-type-primary  只能在style中引用  
+								color:"#2979ff" //这里不能使用theme.scss中的值
 							},
 							{
 								subTitle:"Dark",
