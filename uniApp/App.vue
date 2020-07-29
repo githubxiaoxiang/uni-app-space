@@ -16,7 +16,7 @@
 		}
 	}
 </script>
-<style lang="scss" scoped>
+<style lang="scss"> //这里不能添加作用域scope 否则index.scss其他地方无法使用
     /* 注意要写在第一行，同时给style标签加入lang="scss"属性 */
     @import "uview-ui/index.scss";
 </style>
