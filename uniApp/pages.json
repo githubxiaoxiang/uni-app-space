@@ -45,7 +45,7 @@
 		}
 	],
 	"subPackages": [{
-		"root": "pages/uview-example/componentsA",
+		"root": "pages/uview-example/componentsC",
 		"pages": [{
 			"path": "color/index",
 			"style":{
