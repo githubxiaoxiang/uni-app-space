@@ -1,7 +1,7 @@
 <template>
 	<view class="wrap">
 		<view class="inner-wrap u-border-left u-border-top">
-			<view class="u-icon-item u-border-right u-border-bottom" v-for="(item,index) in iconList" :key="index">
+			<view class="u-icon-item u-border-right u-border-bottom" @click="onClickIcon(item.name)" v-for="(item,index) in iconList" :key="index">
 				<!-- <u-icon :name="item.name" size="40" :label="item.name" label-size="22" label-color="909399" label-pos="bottom"></u-icon> -->
 				<u-icon :name="item.name" size="40" color="#909399"></u-icon>
 				<text class="u-icon-name">{{item.name}}</text>
@@ -20,7 +20,20 @@
 			}
 		},
 		methods:{
-			
+			onClickIcon(name)
+			{
+				// #ifdef H5
+				return this.$u.toast("暂不支持复制");
+				// #endif
+				uni.setClipboardData({
+					data:name,
+					success: () => {
+						
+					}
+				})
+				uni.hideToast();
+				this.$u.toast("图标名称已复制");
+			}
 		}
 	}
 </script>
