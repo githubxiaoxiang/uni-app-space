@@ -9,8 +9,10 @@
 	/* flex-flow属性是flex-direction属性和flex-wrap属性的简写形式 */
 	flex-flow: row wrap;
 	/* 项目在主轴上的对齐方式 flex-start | flex-end | center | space-between | space-around*/
+	/* 如果方向是row 则主轴是横向 方向是col 则主轴是竖向 */
 	justify-content:flex-start;
 	/* 项目在交叉轴上如何对齐。 flex-start | flex-end | center | baseline | stretch  stretch：如果项目未设置高度或设为auto，将占满整个容器的高度  baseline: 项目的第一行文字的基线对齐*/
+	/* 如果方向是row 则交叉轴是竖向向 方向是col 则交叉轴是横向 */
 	align-items: flex-start ;
 	/* align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用  flex-start | flex-end | center | space-between | space-around | stretch */
 	align-content: flex-start;

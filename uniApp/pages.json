@@ -48,8 +48,16 @@
 		"root": "pages/uview-example/componentsC",
 		"pages": [{
 			"path": "color/index",
-			"style":{
+			"style": {
 				"navigationBarTitleText": "color-颜色"
+			}
+		}]
+	}, {
+		"root": "pages/uview-example/componentsA",
+		"pages": [{
+			"path": "icon/index",
+			"style": {
+				"navigationBarTitleText": "icon-图标"
 			}
 		}]
 	}],
@@ -90,7 +98,7 @@
 		"navigationBarTitleText": "uni测试",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8",
-		"enablePullDownRefresh": true
+		"enablePullDownRefresh": false
 	},
 	"condition": { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式(list 的索引项)
