@@ -11,6 +11,11 @@ export default[
 				path:'/pages/uview-example/componentsA/icon/index',
 				icon:'icon',
 				title:'Icon 图标'
+			},
+			{
+				path:'/pages/uview-example/componentsB/image/index',
+				icon:'image',
+				title:'Image 图片'
 			}
 		]
 	}

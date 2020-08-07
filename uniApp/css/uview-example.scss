@@ -1,0 +1,73 @@
+/* #ifndef APP-NVUE */
+// -------------------------注意注意注意注意注意这里对view title标签全局设置了boder-box包含边框 内边距----------------------------------------------------------------
+view,title{
+	box-sizing: border-box;
+}
+/* #endif */
+//主容器  
+.u-demo{
+	// 上下50rpx 左右40rpx
+	padding: 50rpx 40rpx;
+}
+//展示虚线框
+.u-demo-wrap{
+	border: 1px dashed #ddd;
+	border-radius: 6px;
+	background-color: #fff;
+	// 上下40rpx 左右20rpx
+	padding: 40rpx 20rpx;
+}
+//展示虚线框内部区域
+.u-demo-area{
+	text-align: center;
+}
+//展示虚线框内title  说明title
+.u-demo-title,
+.u-config-title
+{
+	font-size: 32rpx;
+	text-align: center;
+	font-weight: bold;
+	//外底边距预留 40rpx
+	margin-bottom: 40rpx;
+}
+
+.u-config-wrap{
+	
+}
+
+.u-config-title{
+	margin-top: 40rpx;
+	padding-bottom: 10rpx;
+}
+
+//子项item
+.u-config-item{
+	margin-top: 50rpx;
+}
+
+.u-item-title{
+	position: relative;
+	font-size: 28rpx;
+	line-height: 1;
+	//内边距 控制元素内的边距
+	padding-left: 8px;
+	//外边距 控制与其他元素的间距
+	margin-bottom: 22rpx;
+	//参照componentsC/color/index.vue下的 .title &:before
+	&:before{
+		//位置
+		position: absolute;
+		left: 0;
+		top: -1px;
+		//大小
+		width: 4px;
+		height: 16px;
+		//样式
+		border-radius: 10px;
+		background-color: $u-content-color;
+		/* #ifndef APP-NVUE */
+		content:'';
+		/* #endif */
+	}
+}

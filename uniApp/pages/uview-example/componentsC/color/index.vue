@@ -240,7 +240,7 @@
 			padding-left: 22rpx;
 			&:before{
 				width: 4px;
-				height: 15px;
+				height: 16px;
 				border-radius: 100rpx;
 				background-color: $u-content-color;
 				content: ''; //需要加上这个 否则渲染不出来

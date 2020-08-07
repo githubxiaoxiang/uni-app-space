@@ -45,19 +45,27 @@
 		}
 	],
 	"subPackages": [{
-		"root": "pages/uview-example/componentsC",
-		"pages": [{
-			"path": "color/index",
-			"style": {
-				"navigationBarTitleText": "color-颜色"
-			}
-		}]
-	}, {
 		"root": "pages/uview-example/componentsA",
 		"pages": [{
 			"path": "icon/index",
 			"style": {
 				"navigationBarTitleText": "icon-图标"
+			}
+		}]
+	}, {
+		"root": "pages/uview-example/componentsB",
+		"pages": [{
+			"path": "image/index",
+			"style": {
+				"navigationBarTitleText": "image-图片"
+			}
+		}]
+	},{
+		"root": "pages/uview-example/componentsC",
+		"pages": [{
+			"path": "color/index",
+			"style": {
+				"navigationBarTitleText": "color-颜色"
 			}
 		}]
 	}],
