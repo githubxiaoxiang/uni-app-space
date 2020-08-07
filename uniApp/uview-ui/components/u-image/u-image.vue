@@ -34,6 +34,7 @@
 
 <script>
 export default {
+	name:"u-image",
 	props: {
 		// 图片地址
 		src: {
