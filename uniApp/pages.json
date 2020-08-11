@@ -67,6 +67,11 @@
 			"style": {
 				"navigationBarTitleText": "color-颜色"
 			}
+		},{
+			"path":"button/index",
+			"style":{
+				"navigationBarTitleText":"button-按钮"
+			}
 		}]
 	}],
 	"tabBar": {

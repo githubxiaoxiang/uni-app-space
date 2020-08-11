@@ -243,6 +243,7 @@
 				height: 16px;
 				border-radius: 100rpx;
 				background-color: $u-content-color;
+				// content内容生成寄宿 content几乎用在：before :after伪元素中
 				content: ''; //需要加上这个 否则渲染不出来
 				////子级定义position:absolute绝对定位属性，并且子级使用left或right和top或bottom进行绝对定位。
 				// 绝对定位如果父级不使用position:relative，而直接使用position:absolute绝对定位，这个时候将会以body标签为父级
@@ -277,6 +278,14 @@
 					font-size: 24rpx;
 				}
 			}
+		}
+		
+		// -------------------------------content 应用 这里有用到 就在这里添加content应用场景----------------------------
+		// content  清除浮动 
+		.clear:after{
+			content:'';
+			display:table;//也可以是block
+			clear:both;
 		}
 	}
 </style>
