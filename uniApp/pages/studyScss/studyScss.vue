@@ -19,13 +19,13 @@
 			<button class="button-sumit">提交按钮</button>
 			<button class="button-cancel">取消按钮</button>
 			<text class="txt1">测试控制指令@if</text>
-			<view v-for="(item,index) in colList" :key="item" :class="setClass(item)">
+			<view v-for="(item,index) in colList" :key="item" :class="[setClass(item)]">
 				item222
 			</view>
 			<view v-for="(item,index) in user" :key="item" class="item">
 				each for {{item}}
 			</view>
-			<view v-for="(item,index) in userList" :key="item" :class="setUsrClass(item)">
+			<view v-for="(item,index) in userList" :key="item" :class="[setUsrClass(item)]">
 				each for key {{item}}
 			</view>
 			<!-- :class="`mytxt-`+item"  :class="'mytxt-'+item" -->

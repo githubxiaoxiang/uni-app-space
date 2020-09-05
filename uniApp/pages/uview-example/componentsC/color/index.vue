@@ -6,7 +6,7 @@
 			</view>
 			<view class="color-box">
 				<!-- colorSpecialStyle计算属性 mcolorSpecialStyle方法  设置特殊样式 -->
-				<view class="color-item"  v-for="(subItem,subIndex) in item.subList" :key="subIndex" :style="colorSpecialStyle(subItem.color,subItem.txtColor)" >
+				<view class="color-item"  v-for="(subItem,subIndex) in item.subList" :key="subIndex" :style="[colorSpecialStyle(subItem.color,subItem.txtColor)]" >
 					<view class="color-title"> 
 						{{subItem.subTitle}}
 					</view>
