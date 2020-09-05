@@ -25,46 +25,16 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.u-col {
-  float: left;
+.u-cell-box.data-v-5723aa40 {
+  width: 100%;
 }
-.u-col-0 {
-  width: 0;
+.u-cell-title.data-v-5723aa40 {
+  padding: 30rpx 32rpx 10rpx 32rpx;
+  font-size: 30rpx;
+  text-align: left;
+  color: #909399;
 }
-.u-col-1 {
-  width: calc(100%/12);
-}
-.u-col-2 {
-  width: calc(100%/12 * 2);
-}
-.u-col-3 {
-  width: calc(100%/12 * 3);
-}
-.u-col-4 {
-  width: calc(100%/12 * 4);
-}
-.u-col-5 {
-  width: calc(100%/12 * 5);
-}
-.u-col-6 {
-  width: calc(100%/12 * 6);
-}
-.u-col-7 {
-  width: calc(100%/12 * 7);
-}
-.u-col-8 {
-  width: calc(100%/12 * 8);
-}
-.u-col-9 {
-  width: calc(100%/12 * 9);
-}
-.u-col-10 {
-  width: calc(100%/12 * 10);
-}
-.u-col-11 {
-  width: calc(100%/12 * 11);
-}
-.u-col-12 {
-  width: calc(100%/12 * 12);
+.u-cell-item-box.data-v-5723aa40 {
+  background-color: #FFFFFF;
 }
 

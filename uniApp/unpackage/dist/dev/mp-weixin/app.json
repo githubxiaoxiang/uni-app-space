@@ -1,18 +1,40 @@
 {
   "pages": [
+    "pages/uview-example/components",
+    "pages/studyScss/studyScss",
     "pages/flex/flex",
     "pages/test/test",
     "pages/index/index",
     "pages/one/one",
     "pages/two/two"
   ],
-  "subPackages": [],
+  "subPackages": [
+    {
+      "root": "pages/uview-example/componentsA",
+      "pages": [
+        "icon/index"
+      ]
+    },
+    {
+      "root": "pages/uview-example/componentsB",
+      "pages": [
+        "image/index"
+      ]
+    },
+    {
+      "root": "pages/uview-example/componentsC",
+      "pages": [
+        "color/index",
+        "button/index"
+      ]
+    }
+  ],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni测试",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8",
-    "enablePullDownRefresh": true
+    "enablePullDownRefresh": false
   },
   "tabBar": {
     "color": "#7A7E83",
@@ -21,8 +43,8 @@
     "backgroundColor": "#ffffff",
     "list": [
       {
-        "pagePath": "pages/index/index",
-        "text": "首页"
+        "pagePath": "pages/uview-example/components",
+        "text": "组件"
       },
       {
         "pagePath": "pages/test/test",
@@ -31,6 +53,10 @@
       {
         "pagePath": "pages/flex/flex",
         "text": "flex"
+      },
+      {
+        "pagePath": "pages/studyScss/studyScss",
+        "text": "studyScss"
       }
     ]
   },

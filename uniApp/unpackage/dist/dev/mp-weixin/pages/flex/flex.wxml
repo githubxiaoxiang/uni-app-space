@@ -1,1 +1,1 @@
-<view class="root data-v-7c760eb4"><image class="bg data-v-7c760eb4" src="/static/bg.png"></image><view class="box1 data-v-7c760eb4"><view class="item data-v-7c760eb4"></view></view></view>
+<view class="data-v-7c760eb4"><view class="parent data-v-7c760eb4"><block wx:for="{{layerList}}" wx:for-item="item" wx:for-index="index" wx:key="*this"><view class="child data-v-7c760eb4"></view></block></view></view>

@@ -1,1 +1,1 @@
-<view><view hidden="{{!(true)}}">v-show</view><block wx:if="{{true}}"><view>v-if</view></block><view>aaaa</view></view>
+<view><view hidden="{{!(true)}}">v-show</view><block wx:if="{{true}}"><view>v-if</view></block><view>aaaa</view><u-button vue-id="f4372d00-1" type="info" data-event-opts="{{[['^click',[['onLoadImage']]]]}}" bind:click="__e" bind:__l="__l" vue-slots="{{['default']}}">上传图片</u-button></view>
