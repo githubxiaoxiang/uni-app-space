@@ -3,11 +3,11 @@
 		<view class="u-form-item__body" :style="{
 			flexDirection: elLabelPosition == 'left' ? 'row' : 'column'
 		}">
+			<!-- 微信小程序中，将一个参数设置空字符串，结果会变成字符串"true" -->
 			<view class="u-form-item--left" :style="{
-				width: elLabelPosition == 'left' ? $u.addUnit(elLabelWidth) : '100%',
-				flex: `0 0 ${elLabelPosition == 'left' ? $u.addUnit(elLabelWidth) : '100%'}`,
+				width: uLabelWidth,
+				flex: `0 0 ${uLabelWidth}`,
 				marginBottom: elLabelPosition == 'left' ? 0 : '10rpx',
-
 			}">
 				<!-- 为了块对齐 -->
 				<view class="u-form-item--left__content">
@@ -152,11 +152,8 @@ export default {
 			validateMessage: '' ,// 校验失败的提示语
 			// 有错误时的提示方式，message-提示信息，border-如果input设置了边框，变成呈红色，
 			errorType: ['message'],
+			fieldValue: '', // 获取当前子组件input的输入的值
 		};
-	},
-	created() {
-		// 支付宝小程序不支持provide/inject，所以使用这个方法获取整个父组件，在created定义，避免循环应用
-		this.parent = this.$u.$parent.call(this, 'u-form');
 	},
 	watch: {
 		validateState(val) {
@@ -169,8 +166,10 @@ export default {
 		},
 	},
 	computed: {
-		fieldValue() {
-			return this.uForm.model[this.prop];
+		// 计算后的label宽度，由于需要多个判断，故放到computed中
+		uLabelWidth() {
+			// 如果用户设置label为空字符串(微信小程序空字符串最终会变成字符串的'true')，意味着要将label的位置宽度设置为auto
+			return this.elLabelPosition == 'left' ? (this.label === 'true' || this.label === '' ? 'auto' : this.$u.addUnit(this.elLabelWidth)) : '100%';
 		},
 		showError() {
 			return type => {
@@ -182,8 +181,8 @@ export default {
 		},
 		// label的宽度
 		elLabelWidth() {
-			// label默认宽度为90，优先使用本组件的值，如果没有，则用u-form的值
-			return this.labelWidth ? this.labelWidth : (this.parent ? this.parent.labelWidth : 90);
+			// label默认宽度为90，优先使用本组件的值，如果没有(如果设置为0，也算是配置了值，依然起效)，则用u-form的值
+			return (this.labelWidth != 0 || this.labelWidth != '') ? this.labelWidth : (this.parent ? this.parent.labelWidth : 90);
 		},
 		// label的样式
 		elLabelStyle() {
@@ -230,7 +229,7 @@ export default {
 		// 从u-form的rules属性中，取出当前u-form-item的校验规则
 		getRules() {
 			// 父组件的所有规则
-			let rules = this.uForm.rules;
+			let rules = this.parent.rules;
 			rules = rules ? rules[this.prop] : [];
 			// 保证返回的是一个数组形式
 			return [].concat(rules || []);
@@ -259,6 +258,8 @@ export default {
 
 		// 校验数据
 		validation(trigger, callback = () => {}) {
+			// 检验之间，先获取需要校验的值
+			this.fieldValue = this.parent.model[this.prop];
 			// blur和change是否有当前方式的校验规则
 			let rules = this.getFilteredRule(trigger);
 			// 判断是否有验证规则，如果没有规则，也调用回调方法，否则父组件u-form会因为
@@ -281,7 +282,7 @@ export default {
 
 		// 清空当前的u-form-item
 		resetField() {
-			this.uForm.model[this.prop] = this.initialValue;
+			this.parent.model[this.prop] = this.initialValue;
 			// 设置为`success`状态，只是为了清空错误标记
 			this.validateState = 'success';
 		}
@@ -289,23 +290,31 @@ export default {
 
 	// 组件创建完成时，将当前实例保存到u-form中
 	mounted() {
+		// 支付宝、头条小程序不支持provide/inject，所以使用这个方法获取整个父组件，在created定义，避免循环应用
+		this.parent = this.$u.$parent.call(this, 'u-form');
 		// 如果没有传入prop，或者uForm为空(如果u-form-input单独使用，就不会有uForm注入)，就不进行校验
-		if (!this.prop || this.uForm === null) return;
-		// 发出事件，让父组件将本实例加入到管理数组中
-		this.dispatch('u-form', 'on-form-item-add', this);
-		this.errorType = this.uForm.errorType;
-		// 设置初始值
-		this.initialValue = this.fieldValue;
-		// 添加表单校验，这里必须要写在$nextTick中，因为u-form的rules是通过ref手动传入的
-		// 不在$nextTick中的话，可能会造成执行此处代码时，父组件还没通过ref把规则给u-form，导致规则为空
-		this.$nextTick(() =>{
-			this.setRules();
-		})
+		if (this.prop || this.parent) {
+			// 将本实例添加到父组件中
+			this.parent.fields.push(this);
+			this.errorType = this.parent.errorType;
+			// 设置初始值
+			this.initialValue = this.fieldValue;
+			// 添加表单校验，这里必须要写在$nextTick中，因为u-form的rules是通过ref手动传入的
+			// 不在$nextTick中的话，可能会造成执行此处代码时，父组件还没通过ref把规则给u-form，导致规则为空
+			this.$nextTick(() =>{
+				this.setRules();
+			})
+		}
 	},
 
-	// 组件销毁前，将实例从 Form 的缓存中移除
+	// 组件销毁前，将实例从u-form的缓存中移除
 	beforeDestroy() {
-		this.dispatch('u-form', 'on-form-item-remove', this);
+		// 如果当前没有prop的话表示当前不要进行删除（因为没有注入）
+		if(this.parent && this.prop) {
+			this.parent.fields.map((item, index) => {
+				if(item === this) this.parent.fields.splice(index, 1);
+			})
+		}
 	},
 };
 </script>
@@ -314,7 +323,7 @@ export default {
 	@import "../../libs/css/style.components.scss";
 
 	.u-form-item {
-		display: flex;
+		@include vue-flex;
 		// align-items: flex-start;
 		padding: 20rpx 0;
 		font-size: 28rpx;
@@ -328,16 +337,16 @@ export default {
 		}
 
 		&__body {
-			display: flex;
+			@include vue-flex;
 		}
 
 		&--left {
-			display: flex;
+			@include vue-flex;
 			align-items: center;
 
 			&__content {
 				position: relative;
-				display: flex;
+				@include vue-flex;
 				align-items: center;
 				padding-right: 10rpx;
 				flex: 1;
@@ -355,7 +364,7 @@ export default {
 				}
 
 				&__label {
-					display: flex;
+					@include vue-flex;
 					align-items: center;
 					flex: 1;
 				}
@@ -366,14 +375,14 @@ export default {
 			flex: 1;
 
 			&__content {
-				display: flex;
+				@include vue-flex;
 				align-items: center;
 				flex: 1;
 
 				&__slot {
 					flex: 1;
 					/* #ifndef MP */
-					display: flex;
+					@include vue-flex;
 					align-items: center;
 					/* #endif */
 				}

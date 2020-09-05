@@ -1,6 +1,15 @@
 <template>
-	<view class="u-content">
-		<u-dropdown-list></u-dropdown-list>
+	<view class="">
+		<u-button @click="show = true;">打开弹窗</u-button>
+		<u-popup mode="bottom" v-model="show">
+			<view class="content">
+				<u-image class="image" width="500rpx" height="300rpx" src="https://cdn.uviewui.com/uview/example/fade.jpg"></u-image>
+				
+				<view class="confrim-btn">
+					<u-button @click="show = false;">确定</u-button>
+				</view>
+			</view>
+		</u-popup>
 	</view>
 </template>
 
@@ -8,25 +17,21 @@
 	export default {
 		data() {
 			return {
-				content: `
-					<p>露从今夜白，月是故乡明</p>
-					<img src="https://cdn.uviewui.com/uview/swiper/2.jpg" />
-				`
+				show: true
 			}
-		},
+		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	.u-content {
-		margin-top: 100rpx;
-		color: $u-content-color;
-		font-size: 32rpx;
-		line-height: 1.8;
-		
-		// 标签形式无效
-		p {
-			color: $u-tips-color;
-		}
+	.content {
+		padding: 24rpx;
+		text-align: center;
+		position: relative;
+	}
+	
+	.image {
+		position: absolute;
+		top: -200rpx;
 	}
 </style>

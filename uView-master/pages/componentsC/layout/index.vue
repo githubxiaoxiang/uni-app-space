@@ -3,7 +3,7 @@
 		<view class="u-demo-wrap">
 			<view class="u-demo-title">演示效果</view>
 			<view class="u-demo-area">
-				<u-row gutter="20" :justify="justify">
+				<u-row :justify="justify">
 					<u-col :span="span" :offset="offset" @click="click">
 						<view class="demo-layout bg-purple-dark">
 
@@ -34,10 +34,12 @@
 				<view class="u-item-title">分栏偏移</view>
 				<u-subsection vibrateShort :list="[0, 1, 2, 3]" @change="offsetChange"></u-subsection>
 			</view>
+			<!-- #ifndef MP -->
 			<view class="u-config-item">
 				<view class="u-item-title">水平排列方式(微信小程序无效)</view>
 				<u-subsection vibrateShort :list="['start', 'end', 'around', 'between']" @change="justifyChange"></u-subsection>
 			</view>
+			<!-- #endif -->
 		</view>
 	</view>
 </template>
