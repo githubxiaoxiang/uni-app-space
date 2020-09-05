@@ -81,13 +81,22 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var s0 = _vm.__get_style([_vm.customStyle])
+  var s0 = _vm.__get_style([
+    _vm.customStyle,
+    {
+      overflow: _vm.ripple ? "hidden" : "visible"
+    }
+  ])
 
+  var m0 = Number(_vm.hoverStartTime)
+  var m1 = Number(_vm.hoverStayTime)
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
-        s0: s0
+        s0: s0,
+        m0: m0,
+        m1: m1
       }
     }
   )
@@ -176,6 +185,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /**
  * button 按钮
@@ -192,6 +204,7 @@ __webpack_require__.r(__webpack_exports__);
  * @property {Boolean} loading 按钮名称前是否带 loading 图标(App-nvue 平台，在 ios 上为雪花，Android上为圆圈)
  * @property {String} form-type 用于 <form> 组件，点击分别会触发 <form> 组件的 submit/reset 事件
  * @property {String} open-type 开放能力
+ * @property {String} data-name 额外传参参数，用于小程序的data-xxx属性，通过target.dataset.name获取
  * @property {String} hover-class 指定按钮按下去的样式类。当 hover-class="none" 时，没有点击态效果(App-nvue 平台暂不支持)
  * @property {Number} hover-start-time 按住后多久出现点击态，单位毫秒
  * @property {Number} hover-stay-time 手指松开后点击态保留时间，单位毫秒
@@ -329,7 +342,22 @@ __webpack_require__.r(__webpack_exports__);
     // 额外传参参数，用于小程序的data-xxx属性，通过target.dataset.name获取
     dataName: {
       type: String,
-      default: '' } },
+      default: '' },
+
+    // 节流，一定时间内只能触发一次
+    throttleTime: {
+      type: [String, Number],
+      default: 1000 },
+
+    // 按住后多久出现点击态，单位毫秒
+    hoverStartTime: {
+      type: [String, Number],
+      default: 20 },
+
+    // 手指松开后点击态保留时间，单位毫秒
+    hoverStayTime: {
+      type: [String, Number],
+      default: 150 } },
 
 
   computed: {
@@ -360,21 +388,24 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     // 按钮点击
-    click: function click(e) {
-      // 如果按钮时disabled和loading状态，不触发水波纹效果
-      if (this.loading === true || this.disabled === true) return;
-      // 是否开启水波纹效果
-      if (this.ripple) {
-        // 每次点击时，移除上一次的类，再次添加，才能触发动画效果
-        this.waveActive = false;
-        this.$nextTick(function () {
-          this.getWaveQuery(e);
-        });
-      }
-      this.$emit('click');
+    click: function click(e) {var _this = this;
+      // 进行节流控制，每this.throttle毫秒内，只在开始处执行
+      this.$u.throttle(function () {
+        // 如果按钮时disabled和loading状态，不触发水波纹效果
+        if (_this.loading === true || _this.disabled === true) return;
+        // 是否开启水波纹效果
+        if (_this.ripple) {
+          // 每次点击时，移除上一次的类，再次添加，才能触发动画效果
+          _this.waveActive = false;
+          _this.$nextTick(function () {
+            this.getWaveQuery(e);
+          });
+        }
+        _this.$emit('click', e);
+      }, this.throttleTime);
     },
     // 查询按钮的节点信息
-    getWaveQuery: function getWaveQuery(e) {var _this = this;
+    getWaveQuery: function getWaveQuery(e) {var _this2 = this;
       this.getElQuery().then(function (res) {
         // 查询返回的是一个数组节点
         var data = res[0];
@@ -384,7 +415,7 @@ __webpack_require__.r(__webpack_exports__);
         // 最终的方形（变换后的圆形）才能覆盖整个按钮
         data.targetWidth = data.height > data.width ? data.height : data.width;
         if (!data.targetWidth) return;
-        _this.fields = data;
+        _this2.fields = data;
         var touchesX = '',
         touchesY = '';
 
@@ -402,20 +433,20 @@ __webpack_require__.r(__webpack_exports__);
         // 获取触摸点相对于按钮上边和左边的x和y坐标，原理是通过屏幕的触摸点（touchesY），减去按钮的上边界data.top
         // 但是由于`transform-origin`默认是center，所以这里再减去半径才是水波纹view应该的位置
         // 总的来说，就是把水波纹的矩形（变换后的圆形）的中心点，移动到我们的触摸点位置
-        _this.rippleTop = touchesY - data.top - data.targetWidth / 2;
-        _this.rippleLeft = touchesX - data.left - data.targetWidth / 2;
-        _this.$nextTick(function () {
-          _this.waveActive = true;
+        _this2.rippleTop = touchesY - data.top - data.targetWidth / 2;
+        _this2.rippleLeft = touchesX - data.left - data.targetWidth / 2;
+        _this2.$nextTick(function () {
+          _this2.waveActive = true;
         });
       });
     },
     // 获取节点信息
-    getElQuery: function getElQuery() {var _this2 = this;
+    getElQuery: function getElQuery() {var _this3 = this;
       return new Promise(function (resolve) {
         var queryInfo = '';
         // 获取元素节点信息，请查看uniapp相关文档
         // https://uniapp.dcloud.io/api/ui/nodes-info?id=nodesrefboundingclientrect
-        queryInfo = uni.createSelectorQuery().in(_this2);
+        queryInfo = uni.createSelectorQuery().in(_this3);
 
 
 

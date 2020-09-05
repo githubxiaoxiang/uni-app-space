@@ -1,7 +1,11 @@
 <script>
 	export default {
+		globalData:{
+			name:"testName"
+		},
 		onLaunch: function(option) {
 			console.log('App Launch')
+			console.log(getApp().globalData.name)
 			// console.log(option);
 		},
 		onShow: function() {

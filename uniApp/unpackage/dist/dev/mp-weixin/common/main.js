@@ -92,8 +92,12 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 {
+  globalData: {
+    name: "testName" },
+
   onLaunch: function onLaunch(option) {
     console.log('App Launch');
+    console.log(getApp().globalData.name);
     // console.log(option);
   },
   onShow: function onShow() {

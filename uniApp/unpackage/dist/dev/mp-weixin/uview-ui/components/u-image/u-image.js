@@ -177,9 +177,39 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
-var _default =
+//
+//
+//
+//
+
+/**
+ * Image 图片
+ * @description 此组件为uni-app的image组件的加强版，在继承了原有功能外，还支持淡入动画、加载中、加载失败提示、圆角值和形状等。
+ * @tutorial https://uviewui.com/components/image.html
+ * @property {String} src 图片地址
+ * @property {String} mode 裁剪模式，见官网说明
+ * @property {String | Number} width 宽度，单位任意，如果为数值，则为rpx单位（默认100%）
+ * @property {String | Number} height 高度，单位任意，如果为数值，则为rpx单位（默认 auto）
+ * @property {String} shape 图片形状，circle-圆形，square-方形（默认square）
+ * @property {String | Number} border-radius 圆角值，单位任意，如果为数值，则为rpx单位（默认 0）
+ * @property {Boolean} lazy-load 是否懒加载，仅微信小程序、App、百度小程序、字节跳动小程序有效（默认 true）
+ * @property {Boolean} show-menu-by-longpress 是否开启长按图片显示识别小程序码菜单，仅微信小程序有效（默认 false）
+ * @property {String} loading-icon 加载中的图标，或者小图片（默认 photo）
+ * @property {String} error-icon 加载失败的图标，或者小图片（默认 error-circle）
+ * @property {Boolean} show-loading 是否显示加载中的图标或者自定义的slot（默认 true）
+ * @property {Boolean} show-error 是否显示加载错误的图标或者自定义的slot（默认 true）
+ * @property {Boolean} fade 是否需要淡入效果（默认 true）
+ * @property {String Number} width 传入图片路径时图片的宽度
+ * @property {String Number} height 传入图片路径时图片的高度
+ * @property {Boolean} webp 只支持网络资源，只对微信小程序有效（默认 false）
+ * @property {String | Number} duration 搭配fade参数的过渡时间，单位ms（默认 500）
+ * @event {Function} click 点击图片时触发
+ * @event {Function} error 图片加载失败时触发
+ * @event {Function} load 图片加载成功时触发
+ * @example <u-image width="100%" height="300rpx" :src="src"></u-image>
+ */var _default =
 {
-  name: "u-image",
+  name: 'u-image',
   props: {
     // 图片地址
     src: {
@@ -276,6 +306,16 @@ var _default =
       backgroundStyle: {} };
 
   },
+  watch: {
+    src: function src(n) {
+      if (!n) {
+        // 如果传入null或者''，或者false，或者undefined，标记为错误状态
+        this.isError = true;
+      } else {
+        this.isError = false;
+      }
+    } },
+
   computed: {
     wrapStyle: function wrapStyle() {
       var style = {};

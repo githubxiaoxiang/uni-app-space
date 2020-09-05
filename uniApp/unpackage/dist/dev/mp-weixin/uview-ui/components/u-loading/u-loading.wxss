@@ -26,7 +26,9 @@
 /* 透明度 */
 /* 文章场景相关 */
 .u-loading-circle.data-v-2c9bf24a {
-  display: inline-block;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: inline-flex;
   vertical-align: middle;
   width: 28rpx;
   height: 28rpx;
